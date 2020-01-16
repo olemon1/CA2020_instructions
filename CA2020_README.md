@@ -1,20 +1,20 @@
 
-**By gaining access to the contents of this organization, you agree not to distribute or publish any of the contents found here in any way. The access you have can and will only be used for the purposes of Conversational Agents course.**
+**By gaining access to the contents of this organization, you agree not to distribute or publish any of the contents found here in any way. The access you have can and will only be used for the purposes of the Conversational Agents course.**
 
 
 # General Info
-For your coursework you will use the Alana conversational framework. Alana runs as a service and is accessible through an endpoind `http://52.23.135.246:5000`. 
+For your coursework you will use the Alana conversational framework. Alana runs as a service and is accessible through an endpoint `http://52.23.135.246:5000`. 
 ## Setup 
 1. Make sure you have the following installed in your system:
 - `anaconda` (https://docs.anaconda.com/anaconda/install/)
 - `ngrok` (https://ngrok.com/) This will be needed in order to expose your bot and make it accessible by Alana.
-- (optional) `MongoDB` (e.g. from https://www.mongodb.com/download-center/community). Although MongoDB is not needed, most of you will proboably want to keep track of the internal state of your bots which MongoDB will be of great help.
+- (optional) `MongoDB` (e.g. from https://www.mongodb.com/download-center/community). Although MongoDB is not needed, most of you will probably want to keep track of the internal state of your bots, for which MongoDB will be of great help.
 
 (After lecture has been given)
 2. Install all required packages by running `./alana_installation.sh`. This will create the _Alana_ virtual environment on Anaconda, activate it, and install all the packages there. 
 
 ## Usage
-As noted earlier, Alana is already running and is accessible as a service. Each team will need to create one or more new bots, that will be added to the ensemble and called by Alana (as exlpained in the classroom). 
+As noted earlier, Alana is already running and is accessible as a service. Each team will need to create one or more new bots, that will be added to the ensemble and be called by Alana (as explained in the class). 
 
 On each dialogue turn, you will send a **POST** call to Alana to the aforementioned endpoint. At some point during the pipeline Alana will call all the bots specified on the call (including your own). By using `ngrok` you allow your bot to be accessible by Alana. Ngrok will bind an `ip:port` address to a simple URL like `http://example.ngrok.io`.
 
@@ -26,10 +26,10 @@ need to send are as follows (example):
 ```python
 {'user_id': 'test-user',
  'question': 'Hello there',   # The string representation of the user's utterance'
- 'session_id': 'some-session-id',   # A unique id PER DIALOGUE. For clarity, it could be in the format: "<project_number>.UUID4"
+ 'session_id': 'some-session-id',   # A unique id PER DIALOGUE. For clarity, it could be in the format: "<your_project_number>.UUID4"
  'overrides': {
     'BOT_LIST': [   # List of ALL the bots that should be called this turn. For most cases this list will remain the same throughout your project.
-      'evi',  # For default Alana bots (that are already in the enseble) you can use just their name
+      'evi',  # For default Alana bots (that are already in the ensemble) you can use just their name
       {'awesome-bot': 'http://example.ngrok.io'},   # Don't forget to put your own bot in this list! It should be added as a dictionary in order to include the url
       'news_bot_v2',
       'wiki_bot_mongo',
@@ -44,7 +44,7 @@ need to send are as follows (example):
   }
 }
 ```
-The default `BOT_LIST` list that you will have to add your own bot in is:
+The default `BOT_LIST` list that you will have to add your own bot into is:
 
 ```python
 BOT_LIST:
@@ -62,7 +62,7 @@ BOT_LIST:
 ```
 (Note that you do NOT need to use every bot in the default list for your project. You can pick and choose the ones you need.)
 
-The default `PRIORITY_BOTS` list that you will have to add your own bot in is:
+The default `PRIORITY_BOTS` list that you will have to add your own bot into is:
 
 ```python
 PRIORITY_BOTS:
@@ -118,7 +118,7 @@ The state object that every bot in the ensemble will have access to looks like t
                                     
             }
 ```
-**Please note that although the user utterance as it comes from the ASR is in `state.input.text`, the utterance AFTER the preprocessing step is in the `state.nlu.processed_text` so you should use that one in most cases as an input to your bots, since the sentence might have been already transformed in the preprocess.**
+**Please note that although the user utterance as it comes from the ASR is in `state.input.text`, the utterance AFTER the preprocessing step is in the `state.nlu.processed_text` so you should use that one in most cases as an input to your bots, since the sentence might have been already transformed in the preprocessing.**
 
 ## Bot input
 
